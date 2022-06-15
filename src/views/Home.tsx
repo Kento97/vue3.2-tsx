@@ -1,4 +1,5 @@
 import TestCom from "@/components/TestCom";
+import TestScroll from "@/components/TestScroll";
 import { defineComponent, ref, watch, watchEffect } from "vue";
 
 export default defineComponent({
@@ -65,6 +66,7 @@ export default defineComponent({
           placeholder="测试vmodel"
           title="VModel"
         />
+        <TestScroll/>
       </div>
     );
   },

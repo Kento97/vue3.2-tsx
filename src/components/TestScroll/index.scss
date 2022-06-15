@@ -1,0 +1,12 @@
+.scroll {
+  height: 270px;
+  width: 500px;
+  margin: 100px auto;
+  overflow: hidden;
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 0;
+  }
+}
