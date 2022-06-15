@@ -42,7 +42,7 @@ export default defineComponent({
         date: Date.now(),
       },
     ]);
-    const isStop = ref(false);
+    const isStop = ref(true);
     const handleClick = () => {
       isStop.value = !isStop.value;
     };

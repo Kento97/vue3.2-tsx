@@ -9,7 +9,13 @@ export default defineComponent({
     const toggle = () => {
       ok.value = !ok.value;
     };
-
+    const booleanToDom = (ok: boolean) => {
+      const map = new Map([
+        [true, <div>true</div>],
+        [false, <div>false</div>],
+      ]);
+      return map.get(ok);
+    };
     //v-for
     const numberList = ref(Array.from(Array(5), (v: number, k: number) => k));
     const addListItem = () => {
@@ -42,7 +48,7 @@ export default defineComponent({
     return () => (
       <div>
         {/* v-if */}
-        {ok.value ? <div>true</div> : <div>false</div>}
+        {booleanToDom(ok.value)}
         <button onClick={toggle}>改变ok的值{`${ok.value}`}</button>
 
         {/* v-for */}
@@ -66,7 +72,7 @@ export default defineComponent({
           placeholder="测试vmodel"
           title="VModel"
         />
-        <TestScroll/>
+        <TestScroll />
       </div>
     );
   },
