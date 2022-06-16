@@ -1,7 +1,7 @@
 import TestCom from "@/components/TestCom";
 import TestScroll from "@/components/TestScroll";
-import { spawn } from "child_process";
-import { defineComponent, ref, watch, watchEffect, Teleport } from "vue";
+import TestTeleport from "@/components/TestTeleport";
+import { defineComponent, ref, watch, watchEffect } from "vue";
 
 export default defineComponent({
   setup() {
@@ -26,6 +26,13 @@ export default defineComponent({
 
     //v-for
     const numberList = ref(Array.from(Array(5), (v: number, k: number) => k));
+    const renderList = () => (
+      <ul style={{ height: "100px", overflow: "auto" }}>
+        {numberList.value.map((num) => (
+          <li key={num}>{num}</li>
+        ))}
+      </ul>
+    );
     const addListItem = () => {
       numberList.value.push(numberList.value.length);
     };
@@ -55,6 +62,14 @@ export default defineComponent({
     //   console.log("inputValue变化了", inputValue.value);
     // });
 
+    //Teleport
+    const isShowModal = ref(false);
+    const openModal = () => {
+      isShowModal.value = true;
+    };
+    const handleModalCloseEventCallback = () => {
+      isShowModal.value = false;
+    };
     return () => (
       <div>
         {/* v-if */}
@@ -64,11 +79,7 @@ export default defineComponent({
         <div v-show={isShowDiv.value}>vshow</div>
         <button onClick={toggle_isShowDiv}>测试v-show</button>
         {/* v-for */}
-        <ul style={{ height: "100px", overflow: "auto" }}>
-          {numberList.value.map((num) => (
-            <li key={num}>{num}</li>
-          ))}
-        </ul>
+        {renderList()}
         {/* v-on */}
         <button onClick={addListItem}>新增数组元素</button>
 
@@ -84,6 +95,13 @@ export default defineComponent({
           title="VModel"
         />
         <TestScroll />
+
+        {/* Teleport */}
+        <button onClick={openModal}>open Teleport</button>
+        <TestTeleport
+          isShowTeleport={isShowModal.value}
+          onCloseTeleport={handleModalCloseEventCallback}
+        />
       </div>
     );
   },
