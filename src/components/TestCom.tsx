@@ -10,6 +10,8 @@ export default defineComponent({
           <div>{slots.default && slots.default()}</div>
           {/* 具名插槽 */}
           <div>{slots.foo && slots.foo()}</div>
+          {/* 作用域插槽 */}
+          <div>{slots.bar && slots.bar({ name: "具名插槽：张三" })}</div>
           ** 插槽**
         </div>
       );

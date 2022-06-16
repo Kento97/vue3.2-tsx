@@ -1,6 +1,7 @@
 import TestCom from "@/components/TestCom";
 import TestScroll from "@/components/TestScroll";
-import { defineComponent, ref, watch, watchEffect } from "vue";
+import { spawn } from "child_process";
+import { defineComponent, ref, watch, watchEffect, Teleport } from "vue";
 
 export default defineComponent({
   setup() {
@@ -16,6 +17,13 @@ export default defineComponent({
       ]);
       return map.get(ok);
     };
+
+    //v-show
+    const isShowDiv = ref(false);
+    const toggle_isShowDiv = () => {
+      isShowDiv.value = !isShowDiv.value;
+    };
+
     //v-for
     const numberList = ref(Array.from(Array(5), (v: number, k: number) => k));
     const addListItem = () => {
@@ -29,13 +37,14 @@ export default defineComponent({
       default: () => {
         return "default";
       },
+      bar: (props: { name: string }) => <span>{props.name}</span>,
     };
 
     //v-model
     const inputValue = ref("");
-    const handleChange = (e: Event) => {
-      inputValue.value = (e.target as HTMLInputElement).value;
-    };
+    // const handleChange = (e: Event) => {
+    //   inputValue.value = (e.target as HTMLInputElement).value;
+    // };
 
     //watch
     watch(inputValue, (newVal) => {
@@ -45,12 +54,15 @@ export default defineComponent({
     // watchEffect(() => {
     //   console.log("inputValue变化了", inputValue.value);
     // });
+
     return () => (
       <div>
         {/* v-if */}
         {booleanToDom(ok.value)}
         <button onClick={toggle}>改变ok的值{`${ok.value}`}</button>
-
+        {/* v-show */}
+        <div v-show={isShowDiv.value}>vshow</div>
+        <button onClick={toggle_isShowDiv}>测试v-show</button>
         {/* v-for */}
         <ul style={{ height: "100px", overflow: "auto" }}>
           {numberList.value.map((num) => (
@@ -67,8 +79,7 @@ export default defineComponent({
         <div>{inputValue.value}</div>
         <input
           type="text"
-          value={inputValue.value}
-          onInput={handleChange}
+          v-model={inputValue.value}
           placeholder="测试vmodel"
           title="VModel"
         />
