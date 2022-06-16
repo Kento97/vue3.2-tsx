@@ -1,7 +1,10 @@
 import TestCom from "@/components/TestCom";
+import TestComRef from "@/components/TestComRef";
 import TestScroll from "@/components/TestScroll";
 import TestTeleport from "@/components/TestTeleport";
+import type { ComRefType } from "@/types/HomeType";
 import { defineComponent, ref, watch, watchEffect } from "vue";
+import "./Home.scss";
 
 export default defineComponent({
   setup() {
@@ -27,7 +30,7 @@ export default defineComponent({
     //v-for
     const numberList = ref(Array.from(Array(5), (v: number, k: number) => k));
     const renderList = () => (
-      <ul style={{ height: "100px", overflow: "auto" }}>
+      <ul class={"list-ul"}>
         {numberList.value.map((num) => (
           <li key={num}>{num}</li>
         ))}
@@ -70,6 +73,12 @@ export default defineComponent({
     const handleModalCloseEventCallback = () => {
       isShowModal.value = false;
     };
+
+    //组件ref
+    const ComRef = ref<ComRefType | null>(null);
+    const alertDingzhen = () => {
+      ComRef.value!.tellMeYourName();
+    };
     return () => (
       <div>
         {/* v-if */}
@@ -102,6 +111,8 @@ export default defineComponent({
           isShowTeleport={isShowModal.value}
           onCloseTeleport={handleModalCloseEventCallback}
         />
+        <TestComRef ref={ComRef} />
+        <button onClick={alertDingzhen}>测试组件ref</button>
       </div>
     );
   },
