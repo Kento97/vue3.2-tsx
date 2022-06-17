@@ -3,7 +3,7 @@ import TestComRef from "@/components/TestComRef";
 import TestScroll from "@/components/TestScroll";
 import TestTeleport from "@/components/TestTeleport";
 import type { ComRefType } from "@/types/HomeType";
-import { defineComponent, ref, watch, watchEffect } from "vue";
+import { computed, defineComponent, ref, watch, watchEffect } from "vue";
 import "./Home.scss";
 
 export default defineComponent({
@@ -65,6 +65,14 @@ export default defineComponent({
     //   console.log("inputValue变化了", inputValue.value);
     // });
 
+    //computed
+    const computedData = ref(1);
+    const testComputed = computed(() => {
+      return computedData.value * 2;
+    });
+    const changeComputedDep = () => {
+      computedData.value += 1;
+    };
     //Teleport
     const isShowModal = ref(false);
     const openModal = () => {
@@ -95,6 +103,9 @@ export default defineComponent({
         {/* 渲染插槽 */}
         <TestCom>{slots}</TestCom>
 
+        {/* 计算属性 */}
+        <div>计算属性:{testComputed.value}</div>
+        <button onClick={changeComputedDep}>改变计算属性依赖</button>
         {/* v-model */}
         <div>{inputValue.value}</div>
         <input
