@@ -4,6 +4,7 @@ import TestScroll from "@/components/TestScroll";
 import TestTeleport from "@/components/TestTeleport";
 import type { ComRefType } from "@/types/HomeType";
 import { computed, defineComponent, ref, watch, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 import "./Home.scss";
 
 export default defineComponent({
@@ -87,6 +88,12 @@ export default defineComponent({
     const alertDingzhen = () => {
       ComRef.value!.tellMeYourName();
     };
+
+    //router
+    const router = useRouter();
+    const goAboutPage = () => {
+      router.push("/about");
+    };
     return () => (
       <div>
         {/* v-if */}
@@ -124,6 +131,9 @@ export default defineComponent({
         />
         <TestComRef ref={ComRef} />
         <button onClick={alertDingzhen}>测试组件ref</button>
+
+        {/* router */}
+        <button onClick={goAboutPage}>前往about页面</button>
       </div>
     );
   },
