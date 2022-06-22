@@ -1,13 +1,23 @@
-import { defineComponent, type PropType } from "vue";
+import { defineComponent, toRefs, type PropType } from "vue";
 
 export default defineComponent({
   props: {
-    myBtn: {
+    defaultCom: {
+      type: Object as PropType<JSX.Element>,
+      required: true,
+    },
+    headerCom: {
       type: Object as PropType<JSX.Element>,
       required: true,
     },
   },
-  setup({ myBtn }) {
-    return () => <div>{myBtn}</div>;
+  setup(props) {
+    const { defaultCom, headerCom } = toRefs(props);
+    return () => (
+      <>
+        <div>{defaultCom.value}</div>
+        <div>{headerCom.value}</div>
+      </>
+    );
   },
 });

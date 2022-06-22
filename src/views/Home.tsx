@@ -97,11 +97,12 @@ export default defineComponent({
     };
 
     // 测试父组件通过props给子组件传递组件
-    const myBtn = (
+    const myBtn = () => (
       <div>
         <button>我的按钮</button>
       </div>
     );
+    const myInput = () => <input type="text" title="test" placeholder="test"/>;
     return () => (
       <div>
         {/* v-if */}
@@ -144,7 +145,7 @@ export default defineComponent({
         <button onClick={goAboutPage}>前往about页面</button>
         {/* 测试父组件通过props给子组件传递组件 */}
         {/* 在vue3+tsx里，建议使用props处理父传子的情况，插槽少用 */}
-        <TestComToProps myBtn={myBtn}></TestComToProps>
+        <TestComToProps defaultCom={myBtn()} headerCom={myInput()}></TestComToProps>
       </div>
     );
   },
