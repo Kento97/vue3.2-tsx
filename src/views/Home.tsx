@@ -1,5 +1,6 @@
 import TestCom from "@/components/TestCom";
 import TestComRef from "@/components/TestComRef";
+import TestComToProps from "@/components/TestComToProps";
 import TestScroll from "@/components/TestScroll";
 import TestTeleport from "@/components/TestTeleport";
 import type { ComRefType } from "@/types/HomeType";
@@ -94,6 +95,13 @@ export default defineComponent({
     const goAboutPage = () => {
       router.push("/about");
     };
+
+    // 测试父组件通过props给子组件传递组件
+    const myBtn = (
+      <div>
+        <button>我的按钮</button>
+      </div>
+    );
     return () => (
       <div>
         {/* v-if */}
@@ -134,6 +142,9 @@ export default defineComponent({
 
         {/* router */}
         <button onClick={goAboutPage}>前往about页面</button>
+        {/* 测试父组件通过props给子组件传递组件 */}
+        {/* 在vue3+tsx里，建议使用props处理父传子的情况，插槽少用 */}
+        <TestComToProps myBtn={myBtn}></TestComToProps>
       </div>
     );
   },
