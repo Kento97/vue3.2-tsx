@@ -3,6 +3,7 @@ import TestComRef from "@/components/TestComRef";
 import TestComToProps from "@/components/TestComToProps";
 import TestScroll from "@/components/TestScroll";
 import TestTeleport from "@/components/TestTeleport";
+import TestTransition from "@/components/TestTransition";
 import type { ComRefType } from "@/types/HomeType";
 import { computed, defineComponent, ref, watch, watchEffect } from "vue";
 import { useRouter } from "vue-router";
@@ -102,7 +103,7 @@ export default defineComponent({
         <button>我的按钮</button>
       </div>
     );
-    const myInput = () => <input type="text" title="test" placeholder="test"/>;
+    const myInput = () => <input type="text" title="test" placeholder="test" />;
     return () => (
       <div>
         {/* v-if */}
@@ -145,7 +146,13 @@ export default defineComponent({
         <button onClick={goAboutPage}>前往about页面</button>
         {/* 测试父组件通过props给子组件传递组件 */}
         {/* 在vue3+tsx里，建议使用props处理父传子的情况，插槽少用 */}
-        <TestComToProps defaultCom={myBtn()} headerCom={myInput()}></TestComToProps>
+        <TestComToProps
+          defaultCom={myBtn()}
+          headerCom={myInput()}
+        ></TestComToProps>
+
+        {/* transition组件 */}
+        <TestTransition />
       </div>
     );
   },
